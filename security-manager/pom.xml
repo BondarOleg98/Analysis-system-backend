@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.ats</groupId>
 	<artifactId>security-manager</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>security-manager</name>
 	<description>Security application</description>
 	<properties>
@@ -43,6 +43,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>2.5.4</version>
 			</plugin>
 		</plugins>
 	</build>
