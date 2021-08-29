@@ -129,7 +129,7 @@ dmypy.json
 .pyre/
 
 HELP.md
-!.mvn/wrapper/maven-wrapper.jar
+!security-manager/.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
