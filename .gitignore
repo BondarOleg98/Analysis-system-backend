@@ -128,10 +128,14 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-HELP.md
-!security-manager/.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# Maven #
+**/HELP.md
+**/.mvn
+**/mvnw
+**/mvnw.cmd
+
+**/src/main/**/target/
+**/src/test/**/target/
 
 ### STS ###
 .apt_generated
