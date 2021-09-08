@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.ats</groupId>
-    <artifactId>Analysis-system-backend</artifactId>
+    <artifactId>user-management</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
 
@@ -15,8 +15,9 @@
     </properties>
 
     <modules>
-        <module>security-manager</module>
-        <module>user-management</module>
+        <module>user.cmd.api</module>
+        <module>user.core</module>
+        <module>user.query.api</module>
     </modules>
     
 </project>
