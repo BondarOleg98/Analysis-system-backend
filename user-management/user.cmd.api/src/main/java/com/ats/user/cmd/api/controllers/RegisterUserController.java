@@ -33,7 +33,6 @@ public class RegisterUserController {
         } catch (Exception exception) {
             var safeErrorMessage = "Error while processing register user request for id - "
                     + registerUserCommand.getId();
-            System.out.println(exception.toString());
             return new ResponseEntity<>(new RegisterUserResponse(safeErrorMessage), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

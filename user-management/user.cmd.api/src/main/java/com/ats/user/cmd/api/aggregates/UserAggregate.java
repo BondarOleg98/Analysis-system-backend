@@ -9,6 +9,7 @@ import com.ats.user.core.events.UserRegisteredEvent;
 import com.ats.user.core.events.UserRemovedEvent;
 import com.ats.user.core.events.UserUpdatedEvent;
 import com.ats.user.core.models.User;
+import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -18,23 +19,18 @@ import org.axonframework.spring.stereotype.Aggregate;
 import java.util.UUID;
 
 @Aggregate
+@NoArgsConstructor
 public class UserAggregate {
     @AggregateIdentifier
     private String id;
     private User user;
 
-    private final PasswordEncoder passwordEncoder;
-
-    public UserAggregate() {
-        passwordEncoder = new PasswordEncoderImpl();
-    }
-
     @CommandHandler
-    public UserAggregate(RegisterUserCommand registerUserCommand) {
+    public UserAggregate(RegisterUserCommand registerUserCommand, PasswordEncoder passwordEncoder) {
         var newUser = registerUserCommand.getUser();
         newUser.setId(registerUserCommand.getId());
-        passwordEncoder = new PasswordEncoderImpl();
         var password = newUser.getAccount().getPassword();
+        passwordEncoder = new PasswordEncoderImpl();
         var hashedPassword = passwordEncoder.hashPassword(password);
         newUser.getAccount().setPassword(hashedPassword);
 
@@ -47,14 +43,14 @@ public class UserAggregate {
     }
 
     @CommandHandler
-    public void handle(UpdateUserCommand updateUserCommand) {
+    public void handle(UpdateUserCommand updateUserCommand, PasswordEncoder passwordEncoder) {
         var updatedUser = updateUserCommand.getUser();
         updatedUser.setId(updateUserCommand.getId());
         var password = updatedUser.getAccount().getPassword();
         var hashedPassword = passwordEncoder.hashPassword(password);
         updatedUser.getAccount().setPassword(hashedPassword);
 
-        var event = UserRegisteredEvent.builder()
+        var event = UserUpdatedEvent.builder()
                 .id(UUID.randomUUID().toString())
                 .user(updatedUser)
                 .build();
@@ -63,7 +59,7 @@ public class UserAggregate {
     }
 
     @CommandHandler
-    public void handle(RemoveUserCommand removeUserCommand) {
+    public void handle(RemoveUserCommand removeUserCommand, PasswordEncoder passwordEncoder) {
         var event = new UserRemovedEvent();
         event.setId(removeUserCommand.getId());
 

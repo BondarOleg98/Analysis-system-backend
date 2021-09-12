@@ -3,6 +3,7 @@ package com.ats.user.query.api.handlers;
 import com.ats.user.core.events.UserRegisteredEvent;
 import com.ats.user.core.events.UserRemovedEvent;
 import com.ats.user.core.events.UserUpdatedEvent;
+import com.ats.user.query.api.repositories.UserRepository;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.beans.factory.annotation.Autowired;

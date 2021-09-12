@@ -4,9 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+//import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -16,7 +19,9 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Document(collection = "users")
+//@Document(collection = "users")
+@Entity
+@Table(name = "users")
 public class User {
     @Id
     private String id;
@@ -26,7 +31,8 @@ public class User {
     private String lastName;
     @Email(message = "please provide a valid email address")
     private String emailAddress;
-    @NotNull(message = "please provide account credentials")
     @Valid
+    @NotNull(message = "please provide account credentials")
+    @OneToOne
     private Account account;
 }
