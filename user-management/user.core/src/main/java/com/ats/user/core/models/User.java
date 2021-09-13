@@ -4,12 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-//import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -19,7 +15,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-//@Document(collection = "users")
 @Entity
 @Table(name = "users")
 public class User {
@@ -33,6 +28,6 @@ public class User {
     private String emailAddress;
     @Valid
     @NotNull(message = "please provide account credentials")
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private Account account;
 }

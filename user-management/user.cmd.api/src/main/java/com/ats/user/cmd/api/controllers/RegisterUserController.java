@@ -27,6 +27,7 @@ public class RegisterUserController {
     @PostMapping
     public ResponseEntity<RegisterUserResponse> registerUser(@Valid @RequestBody RegisterUserCommand registerUserCommand) {
         registerUserCommand.setId(UUID.randomUUID().toString());
+        registerUserCommand.getUser().getAccount().setId(registerUserCommand.getId());
         try {
             commandGateway.send(registerUserCommand);
             return new ResponseEntity<>(new RegisterUserResponse("User successfully registered"), HttpStatus.CREATED);
