@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
 @Import({AxonConfig.class})
-@EntityScan(basePackages = "com.ats.user.core.models")
 public class UserCommandApiApplication {
 
 	public static void main(String[] args) {
