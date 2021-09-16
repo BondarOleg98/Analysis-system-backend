@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class RegisterUserCommand {
     @TargetAggregateIdentifier
     private String id;
-    @NotNull(message = "no user credentials")
+    @NotNull(message = "no user details were supplied")
     @Valid
     private User user;
 }
