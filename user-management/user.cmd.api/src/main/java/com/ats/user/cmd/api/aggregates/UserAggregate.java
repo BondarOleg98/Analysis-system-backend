@@ -79,11 +79,13 @@ public class UserAggregate {
 
     @EventSourcingHandler
     public void on(UserUpdatedEvent userUpdatedEvent) {
+        this.id = userUpdatedEvent.getId();
         this.user = userUpdatedEvent.getUser();
     }
 
     @EventSourcingHandler
     public void on(UserRemovedEvent userRemovedEvent) {
-        AggregateLifecycle.markDeleted();
+        this.id = userRemovedEvent.getId();
+        this.user.setId(userRemovedEvent.getId());
     }
 }
