@@ -5,10 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
+import javax.validation.Valid;
+
 @Data
 @Builder
 public class UpdateUserCommand {
     @TargetAggregateIdentifier
     private String id;
+    @Valid
     private User user;
 }
