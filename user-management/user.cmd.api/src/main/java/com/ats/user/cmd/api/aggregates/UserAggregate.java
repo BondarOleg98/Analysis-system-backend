@@ -4,6 +4,7 @@ import com.ats.user.cmd.api.commands.RegisterUserCommand;
 import com.ats.user.cmd.api.commands.RemoveUserCommand;
 import com.ats.user.cmd.api.commands.UpdateUserCommand;
 import com.ats.user.cmd.api.security.PasswordEncoder;
+import com.ats.user.cmd.api.security.PasswordEncoderImpl;
 import com.ats.user.core.events.UserRegisteredEvent;
 import com.ats.user.core.events.UserRemovedEvent;
 import com.ats.user.core.events.UserUpdatedEvent;
@@ -13,7 +14,6 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.UUID;
 
@@ -23,9 +23,16 @@ public class UserAggregate {
     private String id;
     private User user;
 
-    @Autowired
+    private final PasswordEncoder passwordEncoder;
+
+    public UserAggregate() {
+        passwordEncoder = new PasswordEncoderImpl();
+    }
+
+
     @CommandHandler
-    public UserAggregate(RegisterUserCommand registerUserCommand, PasswordEncoder passwordEncoder) {
+    public UserAggregate(RegisterUserCommand registerUserCommand) {
+        passwordEncoder = new PasswordEncoderImpl();
         var newUser = registerUserCommand.getUser();
         newUser.setId(registerUserCommand.getId());
         var password = newUser.getAccount().getPassword();
@@ -40,9 +47,8 @@ public class UserAggregate {
         AggregateLifecycle.apply(event);
     }
 
-    @Autowired
     @CommandHandler
-    public void handle(UpdateUserCommand updateUserCommand, PasswordEncoder passwordEncoder) {
+    public void handle(UpdateUserCommand updateUserCommand) {
         var updatedUser = updateUserCommand.getUser();
         updatedUser.setId(updateUserCommand.getId());
         var password = updatedUser.getAccount().getPassword();
@@ -57,9 +63,8 @@ public class UserAggregate {
         AggregateLifecycle.apply(event);
     }
 
-    @Autowired
     @CommandHandler
-    public void handle(RemoveUserCommand removeUserCommand, PasswordEncoder passwordEncoder) {
+    public void handle(RemoveUserCommand removeUserCommand) {
         var event = new UserRemovedEvent();
         event.setId(removeUserCommand.getId());
 
