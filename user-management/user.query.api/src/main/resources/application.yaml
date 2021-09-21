@@ -7,9 +7,6 @@ spring:
       host: localhost
       port: 27017
       database: user
-  jpa:
-    hibernate:
-      ddl-auto: create
   datasource:
     url: jdbc:postgresql://localhost:5432/analysis_system
     username: postgres
