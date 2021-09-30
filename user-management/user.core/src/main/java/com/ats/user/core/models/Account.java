@@ -23,7 +23,7 @@ public class Account {
     private String userName;
     @Size(min = 8, message = "password must have a minimum of 8 characters")
     private String password;
-    @ElementCollection(targetClass = Role.class)
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "accounts_roles",
             joinColumns = @JoinColumn(name = "account_id"))
     @Enumerated(EnumType.STRING)
