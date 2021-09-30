@@ -1,4 +1,4 @@
-package com.ats.user.core.configuration;
+package com.ats.user.core.configurations;
 
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;

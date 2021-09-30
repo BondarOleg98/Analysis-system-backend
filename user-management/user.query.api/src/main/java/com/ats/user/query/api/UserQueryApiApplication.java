@@ -1,6 +1,6 @@
 package com.ats.user.query.api;
 
-import com.ats.user.core.configuration.AxonConfig;
+import com.ats.user.core.configurations.AxonConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;

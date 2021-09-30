@@ -1,4 +1,4 @@
-package com.ats.user.cmd.api.config;
+package com.ats.user.query.api.configurations;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

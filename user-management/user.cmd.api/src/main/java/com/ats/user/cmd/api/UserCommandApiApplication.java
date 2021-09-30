@@ -1,9 +1,8 @@
 package com.ats.user.cmd.api;
 
-import com.ats.user.core.configuration.AxonConfig;
+import com.ats.user.core.configurations.AxonConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
