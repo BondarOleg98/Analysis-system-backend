@@ -1,0 +1,13 @@
+server:
+  port: 8082
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: user
+  datasource:
+    url: jdbc:postgresql://localhost:5432/analysis_system
+    username: postgres
+    password: 12345678
