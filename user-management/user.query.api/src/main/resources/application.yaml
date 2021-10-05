@@ -11,3 +11,10 @@ spring:
     url: jdbc:postgresql://localhost:5432/analysis_system
     username: postgres
     password: 12345678
+
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-value: atsSigningKey
+
