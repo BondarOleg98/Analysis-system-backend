@@ -9,6 +9,7 @@ import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,6 +23,7 @@ public class UserGetDataController {
     }
 
     @GetMapping(path = "/")
+    @PreAuthorize("hasAuthority('READ_PRIVILEGE')")
     public ResponseEntity<UserDataResponse> getAllUsers() {
         try {
             var query = new FindAllUsersQuery();
@@ -40,6 +42,7 @@ public class UserGetDataController {
     }
 
     @GetMapping(path = "byId/{id}")
+    @PreAuthorize("hasAuthority('READ_PRIVILEGE')")
     public ResponseEntity<UserDataResponse> getUserById(@PathVariable(value = "id") String id) {
         try {
             var query = new FindUserByIdQuery(id);
@@ -58,6 +61,7 @@ public class UserGetDataController {
     }
 
     @GetMapping(path = "byFilter/{filter}")
+    @PreAuthorize("hasAuthority('READ_PRIVILEGE')")
     public ResponseEntity<UserDataResponse> searchUserByFilter(@PathVariable(value = "filter") String filter) {
         try {
             var query = new SearchUserQuery(filter);

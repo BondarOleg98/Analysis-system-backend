@@ -1,14 +1,9 @@
 server:
-  port: 8081
+  port: 8084
   error:
     include-binding-errors: always
 
 spring:
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: user
   datasource:
     url: jdbc:postgresql://localhost:5432/analysis_system
     username: postgres
@@ -16,6 +11,9 @@ spring:
 
 security:
   oauth2:
-    resource:
-      jwt:
-        key-value: atsSigningKey
+    client:
+      client-id: atsId
+      client-secret: atsSecret
+      signing-key: atsSigningKey
+      token-validity-seconds: 360
+      refresh-token-validity-seconds: 1500
