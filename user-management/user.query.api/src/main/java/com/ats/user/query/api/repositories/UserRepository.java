@@ -15,7 +15,8 @@ public interface UserRepository extends JpaRepository<User, String> {
                     "FROM accounts_roles AS acc_usr, users AS usr " +
                     "INNER JOIN accounts AS acc " +
                     "ON usr.id = acc.id " +
-                    "WHERE usr.first_name LIKE %?1% OR usr.last_name LIKE %?1% OR usr.email_address LIKE %?1%",
+                    "WHERE usr.first_name LIKE %?1% OR usr.last_name LIKE %?1% OR usr.email_address LIKE %?1% " +
+                    "OR acc_usr.role_name=?1",
             nativeQuery = true)
     List<User> findByFilter(String filter);
 }
