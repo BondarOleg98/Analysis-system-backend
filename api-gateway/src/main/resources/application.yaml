@@ -8,14 +8,18 @@ spring:
         corsConfigurations:
           '[/**]':
             allowedOrigins: "*"
-            allowedHeaders:
-              - content-type
+            allowedHeaders: "*"
             allowedMethods:
               - GET
               - POST
               - PUT
               - DELETE
       routes:
+        - id: securityService
+          uri: http://localhost:8084/oauth/token
+          predicates:
+            - Path=/oauth/token
+
         - id: userCommandApi-registerUser
           uri: http://localhost:8081/api/v1/registerUser
           predicates:
