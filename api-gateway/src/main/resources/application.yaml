@@ -37,3 +37,8 @@ spring:
           uri: http://localhost:8082/api/v1/getUserData/**
           predicates:
             - Path=/api/v1/getUserData/**
+
+        - id: analysisService
+          uri: http://localhost:5000/api/v1/uploadFile
+          predicates:
+            - Path=/api/v1/uploadFile
