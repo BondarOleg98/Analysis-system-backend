@@ -17,24 +17,26 @@ def upload(files, username):
         save_file_data(files, username)
     except Exception as ex:
         logging.debug(ex)
+        raise
 
 
 def save_file_data(files, username):
     try:
         for file in files:
             file = files[file]
-            origin_name, file_extension = os.path.splitext(file.name)
-            filename = secure_filename(origin_name)
+            origin_name, file_extension = os.path.splitext(file.filename)
+            filename = str(uuid.uuid4()) + '_' + secure_filename(file.filename)
             account = AccountDto.query.filter_by(user_name=username).first()
 
-            entry = FileDto(str(uuid.uuid4()), UPLOAD_FOLDER, origin_name, filename, file_extension,
+            entry = FileDto(str(uuid.uuid4()), str(UPLOAD_FOLDER), origin_name, filename, file_extension,
                             False, account.id)
             db.session.add(entry)
+            db.session.commit()
             file.save(os.path.join(UPLOAD_FOLDER, filename))
-        db.session.commit()
     except Exception as ex:
         db.session.rollback()
         logging.debug(ex)
+        raise
 
 
 def get_files(username):
@@ -46,6 +48,7 @@ def get_files(username):
     except Exception as ex:
         logging.debug(ex)
         db.session.rollback()
+        raise
 
 
 def get_file(file_id):
@@ -56,6 +59,7 @@ def get_file(file_id):
     except Exception as ex:
         logging.debug(ex)
         db.session.rollback()
+        raise
 
 
 def delete_file(file_id):
@@ -68,3 +72,4 @@ def delete_file(file_id):
     except Exception as ex:
         db.session.rollback()
         logging.debug(ex)
+        raise
