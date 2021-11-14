@@ -1,6 +1,6 @@
 import flask
 import logging
-from flask import Blueprint, request
+from flask import Blueprint, request, make_response, jsonify
 from flask_jwt_extended import jwt_required
 from services.FileService import upload, get_files, delete_file, get_file
 
@@ -24,8 +24,8 @@ def upload_files(username):
 @jwt_required()
 def get_files_by_username(username):
     try:
-        get_files(username)
-        return flask.Response(status=200)
+        files = get_files(username)
+        return make_response(jsonify(files), 200)
     except Exception as ex:
         logging.debug(ex)
         return flask.Response(status=500)
@@ -33,10 +33,10 @@ def get_files_by_username(username):
 
 @upload_api.route('/api/v1/getFile/<string:id>', methods=['GET'])
 @jwt_required()
-def get_file_by_id(username):
+def get_file_by_id(id):
     try:
-        get_file(username)
-        return flask.Response(status=200)
+        file = get_file(id)
+        return make_response(jsonify(file), 200)
     except Exception as ex:
         logging.debug(ex)
         return flask.Response(status=500)

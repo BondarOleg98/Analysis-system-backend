@@ -43,8 +43,16 @@ def get_files(username):
     try:
         account = AccountDto.query.filter_by(user_name=username).first_or_404(
             description='There is no data by username {}'.format(username))
-        files = FileDto.query.filter_by(account_Id=account.id)
-        return files
+        files = FileDto.query.filter_by(account_Id=account.id).all()
+
+        file_list = []
+        for i in range(len(files)):
+            file = files[i]
+            json_data = {"id": file.id, "name": file.origin_name,
+                         "type": file.extension}
+            file_list.append(json_data)
+
+        return file_list
     except Exception as ex:
         logging.debug(ex)
         db.session.rollback()
@@ -55,7 +63,10 @@ def get_file(file_id):
     try:
         file = FileDto.query.filter_by(id=file_id).first_or_404(
             description='There is no data with file_id {}'.format(file_id))
-        return file
+
+        json_data = {"id": file.id, "name": file.origin_name,
+                     "type": file.extension}
+        return json_data
     except Exception as ex:
         logging.debug(ex)
         db.session.rollback()
@@ -66,8 +77,8 @@ def delete_file(file_id):
     try:
         file = FileDto.query.filter_by(id=file_id).first_or_404(
             description='There is no data with file_id {}'.format(file_id))
-        os.remove(os.path.join(file.path, file.origin_name))
-        file.delete()
+        os.remove(os.path.join(file.path, file.filename))
+        db.session.delete(file)
         db.session.commit()
     except Exception as ex:
         db.session.rollback()
