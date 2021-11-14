@@ -49,7 +49,7 @@ def get_files(username):
         for i in range(len(files)):
             file = files[i]
             json_data = {"id": file.id, "name": file.origin_name,
-                         "type": file.extension}
+                         "type": file.extension, "run": file.run}
             file_list.append(json_data)
 
         return file_list
@@ -65,7 +65,7 @@ def get_file(file_id):
             description='There is no data with file_id {}'.format(file_id))
 
         json_data = {"id": file.id, "name": file.origin_name,
-                     "type": file.extension}
+                     "type": file.extension, "run": file.run}
         return json_data
     except Exception as ex:
         logging.debug(ex)

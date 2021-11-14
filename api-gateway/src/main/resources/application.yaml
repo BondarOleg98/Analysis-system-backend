@@ -54,3 +54,21 @@ spring:
           uri: http://localhost:5000/api/v1/getFiles/**
           predicates:
             - Path=/api/v1/getFiles/**
+
+        - id: analysisDataService-executeFile
+          uri: http://localhost:5001/api/v1/executeAnalysis/**
+          predicates:
+            - Path=/api/v1/executeAnalysis/**
+        - id: analysisDataService-getResult
+          uri: http://localhost:5001/api/v1/getResultAnalysis/**
+          predicates:
+            - Path=/api/v1/getResultAnalysis/**
+
+        - id: forecastingDataService-getResult
+          uri: http://localhost:5002/api/v1/executeForecasting/**
+          predicates:
+            - Path=/api/v1/executeForecasting/**
+        - id: forecastingDataService-getResult
+          uri: http://localhost:5002/api/v1/getResultForecasting/**
+          predicates:
+            - Path=/api/v1/getResultForecasting/**
