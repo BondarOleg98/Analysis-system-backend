@@ -3,9 +3,11 @@ import uuid
 import logging
 from pathlib import Path
 from werkzeug.utils import secure_filename
+
 from services.database import db
 from models.dto.AccountDto import AccountDto
 from models.dto.FileDto import FileDto
+from models.dto.ResultDto import ResultDto
 
 UPLOAD_FOLDER = Path.home() / "uploaded"
 
@@ -77,9 +79,13 @@ def delete_file(file_id):
     try:
         file = FileDto.query.filter_by(id=file_id).first_or_404(
             description='There is no data with file_id {}'.format(file_id))
-        os.remove(os.path.join(file.path, file.filename))
+        result = ResultDto.query.filter_by(file_id=file_id).first()
+        if result:
+            db.session.delete(result)
+            db.session.commit()
         db.session.delete(file)
         db.session.commit()
+        os.remove(os.path.join(file.path, file.filename))
     except Exception as ex:
         db.session.rollback()
         logging.debug(ex)

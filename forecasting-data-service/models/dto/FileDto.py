@@ -11,7 +11,7 @@ class FileDto(db.Model):
     run = db.Column(db.Boolean, nullable=False)
     account_Id = db.Column(db.String(255), db.ForeignKey('accounts.id'),
                            nullable=False)
-    results = db.relationship('ResultDto', backref='files',
+    results = db.relationship('ResultDto', cascade="all,delete", backref='files',
                               lazy='dynamic'),
 
     def __init__(self, id, path, origin_name, filename, extension, run, account_Id):

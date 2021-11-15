@@ -7,20 +7,22 @@ from models.dto.FileDto import FileDto
 from models.dto.ResultDto import ResultDto
 
 logging.basicConfig(level=logging.DEBUG)
+ANALYSIS_SCRIPT = "analyze.py"
+CHART_SCRIPT = "build_chart.py"
 
-NAME_FILE = "analyze.py"
 
-
-def execute(file_id):
+def execute(file_id, type_file):
     try:
         file = FileDto.query.filter_by(id=file_id).first_or_404(
             description='There is no data by file_id {}'.format(file_id))
         if extract_archive(file):
             filename, file_extension = os.path.splitext(file.filename)
-            work_dir = os.path.join(file.path, filename, file.origin_name)
+            work_dir = os.path.join(file.path, filename, "analysis")
             for root, dirs, files in os.walk(work_dir):
-                if NAME_FILE in files:
-                    save_result_data(file, run_script(work_dir))
+                if (ANALYSIS_SCRIPT == type_file) and ANALYSIS_SCRIPT in files:
+                    save_result_data(file, run_script(work_dir, type_file))
+                elif (CHART_SCRIPT == type_file) and CHART_SCRIPT in files:
+                    return run_script(work_dir, type_file)
                 else:
                     raise Exception("There is no script file")
     except Exception:
@@ -38,11 +40,15 @@ def extract_archive(file):
         raise
 
 
-def run_script(work_dir):
+def run_script(work_dir, type_file):
     try:
         os.chdir(work_dir)
-        exec(open(os.path.join(work_dir, NAME_FILE)).read(), globals(), globals())
-        return globals().get("result")
+        if ANALYSIS_SCRIPT == type_file:
+            exec(open(os.path.join(work_dir, ANALYSIS_SCRIPT)).read(), globals(), globals())
+            return globals().get("result")
+        else:
+            exec(open(os.path.join(work_dir, CHART_SCRIPT)).read(), globals(), globals())
+            return globals().get("result")
     except Exception:
         raise
 

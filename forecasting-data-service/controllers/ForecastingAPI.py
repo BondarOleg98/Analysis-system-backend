@@ -20,7 +20,7 @@ def execute_file(id):
 
 @upload_api.route('/api/v1/getResultForecasting/<string:id>', methods=['GET'])
 @jwt_required()
-def get_file_by_id(id):
+def get_result_by_id(id):
     try:
         result = get_result_executing(id)
         return make_response(jsonify(result), 200)

@@ -8,7 +8,7 @@ from models.dto.ResultDto import ResultDto
 
 logging.basicConfig(level=logging.DEBUG)
 
-NAME_FILE = "forecasting.py"
+FORECASTING_SCRIPT = "forecasting.py"
 
 
 def execute(file_id):
@@ -17,9 +17,9 @@ def execute(file_id):
             description='There is no data by file_id {}'.format(file_id))
         if extract_archive(file):
             filename, file_extension = os.path.splitext(file.filename)
-            work_dir = os.path.join(file.path, filename, file.origin_name)
+            work_dir = os.path.join(file.path, filename, "forecasting")
             for root, dirs, files in os.walk(work_dir):
-                if NAME_FILE in files:
+                if FORECASTING_SCRIPT in files:
                     save_result_data(file, run_script(work_dir))
                 else:
                     raise Exception("There is no script file")
@@ -41,7 +41,7 @@ def extract_archive(file):
 def run_script(work_dir):
     try:
         os.chdir(work_dir)
-        exec(open(os.path.join(work_dir, NAME_FILE)).read(), globals(), globals())
+        exec(open(os.path.join(work_dir, FORECASTING_SCRIPT)).read(), globals(), globals())
         return globals().get("result")
     except Exception:
         raise
