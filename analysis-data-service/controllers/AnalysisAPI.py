@@ -22,7 +22,7 @@ def execute_analysis_file(id):
 
 @upload_api.route('/api/v1/buildChart/<string:id>', methods=['POST'])
 @jwt_required()
-def execute_chart_file(id):
+def build_chart(id):
     try:
         result = execute(id, CHART_SCRIPT)
         return make_response(jsonify(result), 200)

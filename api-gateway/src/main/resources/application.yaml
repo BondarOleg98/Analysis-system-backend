@@ -63,6 +63,10 @@ spring:
           uri: http://localhost:5001/api/v1/getResultAnalysis/**
           predicates:
             - Path=/api/v1/getResultAnalysis/**
+        - id: analysisDataService-buildChart
+          uri: http://localhost:5001/api/v1/buildChart/**
+          predicates:
+            - Path=/api/v1/buildChart/**
 
         - id: forecastingDataService-getResult
           uri: http://localhost:5002/api/v1/executeForecasting/**
