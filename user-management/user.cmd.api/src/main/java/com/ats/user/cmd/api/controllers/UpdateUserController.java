@@ -23,11 +23,12 @@ public class UpdateUserController {
     }
 
     @PutMapping(path = "/{id}")
-    @PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
+    @PreAuthorize("hasAuthority('READ_PRIVILEGE')")
     public ResponseEntity<BaseResponse> updateUser(@PathVariable(name = "id") String id,
                                                    @Valid @RequestBody UpdateUserCommand updateUserCommand) {
         try {
             updateUserCommand.setId(id);
+            updateUserCommand.getUser().setId(updateUserCommand.getId());
             updateUserCommand.getUser().getAccount().setId(updateUserCommand.getId());
             commandGateway.send(updateUserCommand);
             return new ResponseEntity<>(new BaseResponse("User successfully updated"), HttpStatus.OK);

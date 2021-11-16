@@ -79,7 +79,6 @@ public class UserAggregate {
 
     @EventSourcingHandler
     public void on(UserUpdatedEvent userUpdatedEvent) {
-        this.id = userUpdatedEvent.getId();
         this.user = userUpdatedEvent.getUser();
     }
 
