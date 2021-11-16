@@ -15,5 +15,5 @@ security:
       client-id: atsId
       client-secret: atsSecret
       signing-key: atsSigningKey
-      token-validity-seconds: 360
+      token-validity-seconds: 3600
       refresh-token-validity-seconds: 1500
