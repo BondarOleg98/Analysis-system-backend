@@ -38,7 +38,41 @@ spring:
           predicates:
             - Path=/api/v1/getUserData/**
 
-        - id: analysisService
-          uri: http://localhost:5000/api/v1/uploadFile
+        - id: uploadDataService-uploadFile
+          uri: http://localhost:5000/api/v1/uploadFile/**
           predicates:
-            - Path=/api/v1/uploadFile
+            - Path=/api/v1/uploadFile/**
+        - id: uploadDataService-deleteFile
+          uri: http://localhost:5000/api/v1/deleteFile/**
+          predicates:
+            - Path=/api/v1/deleteFile/**
+        - id: uploadDataService-getFile
+          uri: http://localhost:5000/api/v1/getFile/**
+          predicates:
+            - Path=/api/v1/getFile/**
+        - id: uploadDataService-getFiles
+          uri: http://localhost:5000/api/v1/getFiles/**
+          predicates:
+            - Path=/api/v1/getFiles/**
+
+        - id: analysisDataService-executeFile
+          uri: http://localhost:5001/api/v1/executeAnalysis/**
+          predicates:
+            - Path=/api/v1/executeAnalysis/**
+        - id: analysisDataService-getResult
+          uri: http://localhost:5001/api/v1/getResultAnalysis/**
+          predicates:
+            - Path=/api/v1/getResultAnalysis/**
+        - id: analysisDataService-buildChart
+          uri: http://localhost:5001/api/v1/buildChart/**
+          predicates:
+            - Path=/api/v1/buildChart/**
+
+        - id: forecastingDataService-getResult
+          uri: http://localhost:5002/api/v1/executeForecasting/**
+          predicates:
+            - Path=/api/v1/executeForecasting/**
+        - id: forecastingDataService-getResult
+          uri: http://localhost:5002/api/v1/getResultForecasting/**
+          predicates:
+            - Path=/api/v1/getResultForecasting/**
