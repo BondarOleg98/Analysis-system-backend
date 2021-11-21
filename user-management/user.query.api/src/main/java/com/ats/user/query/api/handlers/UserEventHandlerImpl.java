@@ -8,6 +8,7 @@ import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @ProcessingGroup("user-group")
@@ -34,7 +35,8 @@ public class UserEventHandlerImpl implements UserEventHandler {
 
     @EventHandler
     @Override
+    @Transactional
     public void on(UserRemovedEvent userRemovedEvent) {
-        userRepository.deleteById(userRemovedEvent.getId());
+        userRepository.deleteByUserId(userRemovedEvent.getId());
     }
 }

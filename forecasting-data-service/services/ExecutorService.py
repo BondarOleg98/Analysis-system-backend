@@ -53,7 +53,7 @@ def save_result_data(file, result):
             ResultDto.query.filter_by(file_id=file.id).update(dict(result=result))
             FileDto.query.filter_by(id=file.id).update(dict(run=True))
         else:
-            entry = ResultDto(str(uuid.uuid4()), result, file.id, file.account_Id)
+            entry = ResultDto(str(uuid.uuid4()), result, file.id, file.account_id)
             FileDto.query.filter_by(id=file.id).update(dict(run=True))
             db.session.add(entry)
         db.session.commit()

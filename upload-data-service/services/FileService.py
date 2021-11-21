@@ -45,7 +45,7 @@ def get_files(username):
     try:
         account = AccountDto.query.filter_by(user_name=username).first_or_404(
             description='There is no data by username {}'.format(username))
-        files = FileDto.query.filter_by(account_Id=account.id).all()
+        files = FileDto.query.filter_by(account_id=account.id).all()
 
         file_list = []
         for i in range(len(files)):

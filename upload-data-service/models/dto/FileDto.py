@@ -9,16 +9,16 @@ class FileDto(db.Model):
     filename = db.Column(db.String(255), nullable=False)
     extension = db.Column(db.String(255), nullable=False)
     run = db.Column(db.Boolean, nullable=False)
-    account_Id = db.Column(db.String(255), db.ForeignKey('accounts.id'),
+    account_id = db.Column(db.String(255), db.ForeignKey('accounts.id'),
                            nullable=False)
     results = db.relationship('ResultDto', cascade="all,delete", backref='files',
                               lazy='dynamic'),
 
-    def __init__(self, id, path, origin_name, filename, extension, run, account_Id):
+    def __init__(self, id, path, origin_name, filename, extension, run, account_id):
         self.id = id,
         self.path = path
         self.origin_name = origin_name,
         self.filename = filename
         self.extension = extension,
         self.run = run
-        self.account_Id = account_Id,
+        self.account_id = account_id,
